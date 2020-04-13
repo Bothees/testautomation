@@ -10,7 +10,7 @@ public class ProductPage {
 
     Common common = new Common();
 
-    @FindBy(css = ".ajax_add_to_cart_button")
+    @FindBy(css = ".product_list .ajax_block_product .ajax_add_to_cart_button")
     private List<WebElement> addToCart;
 
     @FindBy(css= ".continue")
@@ -25,19 +25,22 @@ public class ProductPage {
     @FindBy(css= ".product-image-container")
     private  List<WebElement> products;
 
+    @FindBy(css=".product_list .ajax_block_product")
+    private List<WebElement> productList;
+
     @FindBy(css = ".shopping_cart a")
     private  List<WebElement> viewShoppingCart;
 
     @FindBy(id="email")
     private WebElement signInEmail;
 
-    private By cart = new By.ByCssSelector(".ajax_add_to_cart_button");
+    private By addcart = new By.ByCssSelector(".ajax_add_to_cart_button");
 
     public void addProductsIntoCart(int numberOfItems) {
-        common.waitForPresenceOfElements(cart);
+        common.waitForPresenceOfElements(addcart);
         for(int i=0;i<numberOfItems;i++) {
-            common.scrollIntoView(products.get(i));
             common.moveToElementAndClickUsingJs(addToCart.get(i));
+            common.waitForVisibilityOfElement(continueShopping);
             common.moveToElementAndClickUsingJs(continueShopping);
         }
     }

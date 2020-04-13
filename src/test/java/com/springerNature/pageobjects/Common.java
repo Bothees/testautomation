@@ -44,4 +44,9 @@ public class Common extends DriverFactory{
         clickUsingJS(element);
     }
 
+    public void hoverOverAnElementUsingJS(WebElement element) {
+        String strJavaScript = "var element = arguments[0]; var mouseEventObj = document.createEvent('MouseEvents'); mouseEventObj.initEvent( 'mouseover', true, true ); element.dispatchEvent(mouseEventObj);";
+        ((JavascriptExecutor) driver).executeScript(strJavaScript,element);
+    }
+
 }
