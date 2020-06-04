@@ -1,25 +1,28 @@
 package com.blackcat.pageobjects;
 
-import com.blackcat.utilities.DriverFactory;
+import com.blackcat.utilities.BasePage;
 import com.blackcat.utilities.TestContext;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 /**
  * Created by bothees on 27/11/2018.
  */
 public class Login {
 
-    @FindBy(id = "emailAddress")
+    @FindBy(id = "email")
     private WebElement usrname;
 
     @FindBy(id = "password")
     private WebElement passwd;
 
-    @FindBy(id = "signInButton")
+    @FindBy(id = "submit")
     private WebElement signin;
 
-    @FindBy(xpath = "//*[@id='content-wrap']/div/div/section/header/div[1]/h1")
+    @FindBy(css = ".sign-out__user-name")
     private WebElement loginHead;
 
     @FindBy(id ="signedInUserSignOut")
@@ -27,7 +30,14 @@ public class Login {
 
     TestContext testContext  = TestContext.getInstance();
 
-    Common common = new Common();
+    private WebDriver webDriver;
+    BasePage basePage;
+
+    public Login(BasePage basePage) {
+        this.basePage = basePage;
+        webDriver = this.basePage.getWebDriver();
+        PageFactory.initElements(new AjaxElementLocatorFactory(webDriver, 30), this);
+    }
 
     private String url = testContext.readproperty("login.url") ;
     private String username = testContext.readproperty("login.username");
@@ -35,8 +45,7 @@ public class Login {
 
 
     public void goToLoginpage(){
-            DriverFactory.driver.get("https://www.moneysupermarket.com/my-account/sign-out");
-            DriverFactory.driver.get(url);
+        webDriver.get(url);
     }
 
     public void enteruserName(){
@@ -51,15 +60,13 @@ public class Login {
 
     public void clickLoginButton(){
         signin.click();
-        url = DriverFactory.driver.getCurrentUrl();
+        url = webDriver.getCurrentUrl();
     }
 
     public String verifyHomepage(){
-        String text = common.waitForVisibilityOfElement(loginHead).getText();
+        String text = basePage.waitForVisibilityOfElement(loginHead).getAttribute("innerText");
         System.out.println("Actual String:"+text);
         return text;
     }
-
-
 
 }

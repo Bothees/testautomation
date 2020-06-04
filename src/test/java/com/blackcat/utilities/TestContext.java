@@ -16,6 +16,7 @@ public class TestContext {
 
     private static TestContext propertyLoader = new TestContext();
 
+
     public TestContext(){
         loadprop();
     }
@@ -36,4 +37,5 @@ public class TestContext {
     public static TestContext getInstance() {
         return propertyLoader;
     }
+
 }
