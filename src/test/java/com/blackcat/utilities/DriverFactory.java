@@ -40,7 +40,7 @@ public class DriverFactory {
         @Override
         protected WebDriver initialValue()
         {
-            return getLocalDriver(); // can be replaced with other browser drivers
+            return getLocalDriver();
         }
     };
 
@@ -54,6 +54,4 @@ public class DriverFactory {
         driver.get().quit();
         driver.remove();
     }
-
-
 }

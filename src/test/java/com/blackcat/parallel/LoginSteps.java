@@ -1,23 +1,20 @@
 package com.blackcat.parallel;
 
 import com.blackcat.pageobjects.Login;
-import com.blackcat.utilities.BasePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-/**
- * Created by bothees on 11/10/2016.
- */
 public class LoginSteps {
 
     private static String expectedstring = "Boothiraj";
 
-    BasePage basePage = new BasePage();
-
-    private Login login = new Login(basePage);
+    private Login login;
+    public LoginSteps(Login login) {
+        this.login = login;
+    }
 
     @Given("^user am on LoginPage$")
     public void user_am_on_LoginPage() {

@@ -1,70 +1,38 @@
 package com.blackcat.pageobjects;
 
 import com.blackcat.utilities.BasePage;
-import com.blackcat.utilities.TestContext;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.By;
 
-/**
- * Created by bothees on 27/11/2018.
- */
-public class Login {
+public class Login extends BasePage{
 
-    @FindBy(id = "email")
-    private WebElement usrname;
+    private By usrname = new By.ById("email");
 
-    @FindBy(id = "password")
-    private WebElement passwd;
+    private By passwd = new By.ById("password");
 
-    @FindBy(id = "submit")
-    private WebElement signin;
+    private By signin = new By.ById("submit");
 
-    @FindBy(css = ".sign-out__user-name")
-    private WebElement loginHead;
+    private By loginHead = By.cssSelector(".sign-out__user-name");
 
-    @FindBy(id ="signedInUserSignOut")
-    private WebElement signout;
-
-    TestContext testContext  = TestContext.getInstance();
-
-    private WebDriver webDriver;
-    BasePage basePage;
-
-    public Login(BasePage basePage) {
-        this.basePage = basePage;
-        webDriver = this.basePage.getWebDriver();
-        PageFactory.initElements(new AjaxElementLocatorFactory(webDriver, 30), this);
-    }
-
-    private String url = testContext.readproperty("login.url") ;
-    private String username = testContext.readproperty("login.username");
-    private String password = testContext.readproperty("login.password") ;
-
+    private By signout = new By.ById("signedInUserSignOut");
 
     public void goToLoginpage(){
-        webDriver.get(url);
+       openHomePage();
     }
 
     public void enteruserName(){
-        usrname.clear();
-        usrname.sendKeys(username);
+        enterText(usrname,"username");
     }
 
     public void enteruserPassword(){
-        passwd.clear();
-        passwd.sendKeys(password);
+       enterText(passwd,"password");
     }
 
     public void clickLoginButton(){
-        signin.click();
-        url = webDriver.getCurrentUrl();
+        clickOnButton(signin);
     }
 
     public String verifyHomepage(){
-        String text = basePage.waitForVisibilityOfElement(loginHead).getAttribute("innerText");
+        String text = waitForVisibilityOfElement(loginHead).getAttribute("innerText");
         System.out.println("Actual String:"+text);
         return text;
     }

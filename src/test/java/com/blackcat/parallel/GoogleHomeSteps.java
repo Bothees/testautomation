@@ -1,7 +1,6 @@
 package com.blackcat.parallel;
 
 import com.blackcat.pageobjects.GoogleHome;
-import com.blackcat.utilities.BasePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.hamcrest.MatcherAssert;
@@ -12,9 +11,7 @@ import static org.hamcrest.core.Is.is;
 
 public class GoogleHomeSteps {
 
-    private BasePage basePage = new BasePage();
-
-    private GoogleHome googleHome = new GoogleHome(basePage);
+    private GoogleHome googleHome = new GoogleHome();
 
     Logger logger = LoggerFactory.getLogger(GoogleHomeSteps.class);
 

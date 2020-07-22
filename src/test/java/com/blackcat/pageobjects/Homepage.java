@@ -1,26 +1,23 @@
 package com.blackcat.pageobjects;
 
 import com.blackcat.utilities.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 /**
  * Created by bothees on 27/11/2018.
  */
-public class Homepage {
+public class Homepage extends BasePage{
 
     private BasePage basePage;
 
     private WebDriver driver;
 
-    @FindBy(css = ".icon.calendar")
-    private WebElement history;
+    private By history = new By.ByCssSelector(".icon.calendar");
 
-    @FindBy(css=".sign-out__button")
-    private WebElement logout;
+    private By logout = new By.ByCssSelector(".sign-out__button");
 
     public Homepage(BasePage bp) {
         this.basePage = bp;
@@ -29,7 +26,7 @@ public class Homepage {
     }
 
     public void clickOnHistoryButton() {
-       basePage.waitForVisibilityOfElement(history).click();
+       waitForVisibilityOfElement(history).click();
     }
 
     public boolean verifyHistory() {
@@ -37,6 +34,6 @@ public class Homepage {
     }
 
     public void logout() {
-        logout.click();
+        clickOnButton(logout);
     }
 }
