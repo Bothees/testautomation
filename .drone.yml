@@ -2,11 +2,14 @@ kind: pipeline
 name: default
 
 steps:
-- name: test
+- name: download maven
   image: maven:3-jdk-10
   commands:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - mvn clean test
+    - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- name: test
+   image:chrome-docker
+   commands:
+     - mvn clean test
   trigger:
     branch:
       - master
