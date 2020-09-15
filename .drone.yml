@@ -6,10 +6,11 @@ steps:
   image: maven:3-jdk-10
   commands:
     - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-- name: test
-   image:chrome-docker
-   commands:
-     - mvn clean test
+    - mvn clean test
+services:
+  selenium:
+    image: selenium/standalone-chrome
+
   trigger:
     branch:
       - master
