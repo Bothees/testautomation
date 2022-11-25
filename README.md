@@ -2,7 +2,7 @@
 Parallel Execution of Feature file with more than one Runner class.
 Maven SureFire plugin used to execute tests parallel.
 
-ThreadLocal<WebDriver> used to instantiate driver for each every test.
+ThreadLocal<WebDriver> used to instantiate driver for each test.
     
 clueCucumber report plugin used to generate combined report.
 
